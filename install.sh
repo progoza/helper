@@ -10,6 +10,6 @@ cp ./target/libs/apiguardian-api-*.jar ~/.local/bin/jar/helper-libs
 cp ./target/libs/apiguardian-api-*.jar ~/.local/bin/jar/helper-libs
 
 
-cp ./script/rentcalc.sh ~/.local/bin/
+cp ./script/h-rentcalc.sh ~/.local/bin/
 
-chmod u+x ~/.local/bin/rentcalc.sh
+chmod u+x ~/.local/bin/h-rentcalc.sh
