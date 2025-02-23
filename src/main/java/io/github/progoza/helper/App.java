@@ -100,7 +100,9 @@ public class App {
         System.out.println( "Na razie wspieram tylko rentcalc!");
         
         silentDefaults = List.of(args).stream().filter(x -> x.equals("-silentDefaults") || x.equals("-S")).findFirst().isPresent();
-
+        if (silentDefaults) {
+            System.out.println("Uzywam trybu silent - będę pobierał tylko konieczne dane - pozostałe pozostaną domyślne.");
+        }
         Settings settings = new Settings();
         Scanner s = new Scanner(System.in);
         Calculator calc = new Calculator();
@@ -293,7 +295,7 @@ public class App {
         if (hasReferenceStatement) {
             calc.setOldStatement(oldStatement);
             calc.calculate();
-            MarkdownExport.exportMarkdown(settings.getPdfDir(), filePrefix, newStatement);
+            MarkdownExport.exportMarkdown(settings.getMdDir(), filePrefix, newStatement);
         }
         loaderSaver.saveStatement(newStatement, settings.getStatementDir());
     }

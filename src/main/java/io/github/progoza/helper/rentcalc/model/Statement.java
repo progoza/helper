@@ -23,6 +23,7 @@ public class Statement {
 
     private String frontPageTitle;
     private int countOfMonthsCovered;
+    
     private BigDecimal fixedCostsPerMonth;
     private BigDecimal fixedCostsAmount;
 

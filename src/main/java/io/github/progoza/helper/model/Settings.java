@@ -3,10 +3,10 @@ package io.github.progoza.helper.model;
 public class Settings {
 
     public String getStatementDir() {
-        return System.getenv("HOME") + "/workdir/statements";
+        return "/Volumes/home/Documents/wynajem/db";
     }
 
-    public String getPdfDir() {
-        return System.getenv("HOME") + "/workdir/statements/pdf";
+    public String getMdDir() {
+        return "/tmp";
     }
 }

@@ -1,6 +1,8 @@
 package io.github.progoza.helper.rentcalc;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -117,7 +119,7 @@ public class CalculatorTest {
 
         testObj.calculate();
 
-        assertThat(testObj.getNewStatement().getFixedCostsAmount()).isEqualTo(BigDecimal.ZERO);
+        assertThat(testObj.getNewStatement().getFixedCostsAmount()).isEqualTo(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN));
         
         assertThat(testObj.getNewStatement().getMeters().getFirst().getOldMeterReading()).isEqualTo(new BigDecimal("12.5"));
         assertThat(testObj.getNewStatement().getMeters().getFirst().getUsage()).isEqualTo(new BigDecimal("1.1"));

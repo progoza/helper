@@ -191,8 +191,8 @@ public class Calculator {
             futurePayments.add(futurePayment);
             LocalDate futureDeadline = newStatement.getCreationDate().withDayOfMonth(10).plusMonths(1 + i);
             futurePaymentsDeadlines.add(futureDeadline);
+            List<String> futureMonths = getMonthNames(futurePaymentsDeadlines.getFirst().minusMonths(1), futurePaymentsDeadlines.getLast());
+            newStatement.setNextPeriodTitle(getTitleCaption(futureMonths));
         }
-        List<String> futureMonths = getMonthNames(futurePaymentsDeadlines.getFirst().minusMonths(1), futurePaymentsDeadlines.getLast());
-        newStatement.setNextPeriodTitle(getTitleCaption(futureMonths));
     }
 }

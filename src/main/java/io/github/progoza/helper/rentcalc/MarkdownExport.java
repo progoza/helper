@@ -298,8 +298,13 @@ public class MarkdownExport {
                 .replace("{futureTotalCosts}", s.getFutureTotalCostsPerMonth().toString())
                 ;
             writer.write(line16);
-
             System.out.println("Plik markdown " + fileName + " zapisany pomyślnie.");
+        } catch (IOException e) {
+            throw new RuntimeException("Exception while exporting markdown file.", e);
+        }
+
+        try (FileWriter writer = new FileWriter("/tmp/last-rentcalc-file.txt", false)) {
+            writer.write(fileName);
         } catch (IOException e) {
             throw new RuntimeException("Exception while exporting markdown file.", e);
         }
