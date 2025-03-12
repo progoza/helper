@@ -26,6 +26,6 @@ if [ -f $LAST_RENTCALC_FILE ]; then
 
     pandoc -o /Volumes/home/Documents/wynajem/pdf/${FILENAME}.pdf $STORED_MD_FULLPATH
 
- #   rm $STORED_MD_FULLPATH
- #   rm $LAST_RENTCALC_FILE
+    rm $STORED_MD_FULLPATH
+    rm $LAST_RENTCALC_FILE
 fi
