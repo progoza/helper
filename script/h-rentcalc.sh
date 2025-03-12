@@ -7,13 +7,25 @@ if [ $IS_MOUNTED -eq "0" ]; then
     exit -1
 fi
 
-java -cp "$HOME/.local/bin/jar/helper.jar:$HOME/.local/bin/jar/helper-libs/*" io.github.progoza.helper.App
+SILENT=
+if [ "$1" == "-silent" ] ; then
+   SILENT=$1
+fi
 
-STORED_MD_FULLPATH=`cat /tmp/last-rentcalc-file.txt`
-FILENAME=$(basename -- "$STORED_MD_FULLPATH")
-FILENAME="${FILENAME%.*}"
+java -cp "$HOME/.local/bin/jar/helper.jar:$HOME/.local/bin/jar/helper-libs/*" io.github.progoza.helper.App $SILENT
 
-pandoc -o /Volumes/home/Documents/wynajem/pdf/${FILENAME}.pdf $STORED_MD_FULLPATH
+LAST_RENTCALC_FILE=/tmp/last-rentcalc-file.txt
 
-rm $STORED_MD_FULLPATH
-rm /tmp/last-rentcalc-file.txt
+if [ -f $LAST_RENTCALC_FILE ]; then
+    STORED_MD_FULLPATH=`cat $LAST_RENTCALC_FILE`
+
+    echo "Exporting PDF file from md $STORED_MD_FULLPATH"
+
+    FILENAME=$(basename -- "$STORED_MD_FULLPATH")
+    FILENAME="${FILENAME%.*}"
+
+    pandoc -o /Volumes/home/Documents/wynajem/pdf/${FILENAME}.pdf $STORED_MD_FULLPATH
+
+ #   rm $STORED_MD_FULLPATH
+ #   rm $LAST_RENTCALC_FILE
+fi

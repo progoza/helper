@@ -99,7 +99,7 @@ public class App {
     {
         System.out.println( "Na razie wspieram tylko rentcalc!");
         
-        silentDefaults = List.of(args).stream().filter(x -> x.equals("-silentDefaults") || x.equals("-S")).findFirst().isPresent();
+        silentDefaults = List.of(args).stream().filter(x -> x.equals("-silent") || x.equals("-S")).findFirst().isPresent();
         if (silentDefaults) {
             System.out.println("Uzywam trybu silent - będę pobierał tylko konieczne dane - pozostałe pozostaną domyślne.");
         }
@@ -135,14 +135,14 @@ public class App {
         long fixedCostId = 1;
         boolean addNewFixedCosts = false;
 
-        if (hasReferenceStatement && !silentDefaults) {
+        if (hasReferenceStatement) {
             System.out.println("Lista kosztów stałych z referencyjnego rozliczenia:");
             for (FixedCost oldFixedCost : oldStatement.getFixedCosts()) {
                 if (oldFixedCost.isRemoved()) {
                     continue;
                 }
                 System.out.println("  " + oldFixedCost.getId() + " - " + oldFixedCost.getDescription() + " : " + oldFixedCost.getAmount());
-                String option = readString(s, "  Czy chcesz je (Z)mienic, (U)sunąć czy (N)ie zmieniać%s?\n> ", "N");
+                String option = readStringSilent(s, "  Czy chcesz je (Z)mienic, (U)sunąć czy (N)ie zmieniać%s?\n> ", "N");
                 if (option.equalsIgnoreCase("Z")) {
                     FixedCost fixedCost = readFixedCost(s, oldFixedCost.getId());
                     newStatement.getFixedCosts().add(fixedCost);
@@ -158,7 +158,7 @@ public class App {
                 }
             }
             fixedCostId = oldStatement.getFixedCosts().stream().mapToLong(x -> x.getId()).max().orElse(0L) + 1;
-            String option2 = readString(s, "  Czy chcesz chcesz dodać nowe koszty stałę (T)/(N)%s?\n> ", "N");
+            String option2 = readStringSilent(s, "  Czy chcesz chcesz dodać nowe koszty stałę (T)/(N)%s?\n> ", "N");
             if (option2.equalsIgnoreCase("Y")) {
                 addNewFixedCosts = true;
             }
@@ -174,14 +174,14 @@ public class App {
 
         long meteredCostId = 1;
         boolean addNewMeteredCosts = false;
-        if (hasReferenceStatement && !silentDefaults) {
+        if (hasReferenceStatement) {
             System.out.println("Lista kosztów licznikowych z referencyjnego rozliczenia:");
             for (MeteredCost oldMeteredCost : oldStatement.getMeteredCosts()) {
                 if (oldMeteredCost.isRemoved()) {
                     continue;
                 }
                 System.out.println("  " + oldMeteredCost.getId() + " - " + oldMeteredCost.getDescription() + " : " + oldMeteredCost.getPayPerUnit() + "/" + oldMeteredCost.getUnitName());
-                String option = readString(s, "  Czy chcesz je (Z)mienic, (U)sunąć czy (N)ie zmieniać%s?\n> ", "N");
+                String option = readStringSilent(s, "  Czy chcesz je (Z)mienic, (U)sunąć czy (N)ie zmieniać%s?\n> ", "N");
                 if (option.equalsIgnoreCase("Z")) {
                     MeteredCost meteredCost = readMeteredCost(s, oldMeteredCost.getId());
                     newStatement.getMeteredCosts().add(meteredCost);
@@ -199,7 +199,7 @@ public class App {
                 }
             }
             meteredCostId = oldStatement.getMeteredCosts().stream().mapToLong(x -> x.getId()).max().orElse(0L) + 1;
-            String option2 = readString(s, "  Czy chcesz chcesz dodać nowe koszty licznikowe (T)/(N)%s?\n> ", "N");
+            String option2 = readStringSilent(s, "  Czy chcesz chcesz dodać nowe koszty licznikowe (T)/(N)%s?\n> ", "N");
             if (option2.equalsIgnoreCase("Y")) {
                 addNewMeteredCosts = true;
             }

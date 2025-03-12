@@ -214,7 +214,7 @@ public class MarkdownExport {
             writer.write(line0);
 
             if (s.getMeters().isEmpty()) {
-                writer.write("Brak zarejestrowanych liczników.");
+                writer.write(" - Brak zarejestrowanych liczników.\n\n");
             } else {
                 String line1 = lines[1]
                     .replace("{refStatementDate}", s.getLastStatementDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)))
@@ -236,7 +236,7 @@ public class MarkdownExport {
             writer.write(lines[4]);
 
             if (s.getMeteredCosts().isEmpty()) {
-                writer.write("Brak kosztów w/g zuycia.");
+                writer.write(" - Brak kosztów w/g zużycia.\n\n");
             } else {
                 writer.write(lines[5]);
 
@@ -290,7 +290,7 @@ public class MarkdownExport {
             long futureFixedCostsCount = s.getFixedCosts().stream().filter(x -> !x.isRemoved()).count();
             String line13;
             if (futureFixedCostsCount == 0) {
-                line13 = "Brak zdefiniowanych kosztów stałych.";
+                line13 = " - Brak zdefiniowanych kosztów stałych.\n\n";
             } else {
                 line13 = lines[13];
             }
@@ -311,7 +311,7 @@ public class MarkdownExport {
             long futureMeteredCostsCount = s.getMeteredCosts().stream().filter(x -> !x.isRemoved()).count();
             String line16;
             if (futureMeteredCostsCount == 0) {
-                line16 = "Brak definiowanych kosztów w/g zuycia.";
+                line16 = " - Brak definiowanych kosztów w/g zuycia.\n\n";
             } else {
                 line16 = lines[16];
             }

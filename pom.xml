@@ -8,10 +8,10 @@
     <groupId>io.github.progoza</groupId>
     <artifactId>helper</artifactId>
     <version>1.0-SNAPSHOT</version>
-<properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
     <name>helper</name>
 
     <url></url>
@@ -23,6 +23,11 @@
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.lanterna</groupId>
+            <artifactId>lanterna</artifactId>
+            <version>3.1.2</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
