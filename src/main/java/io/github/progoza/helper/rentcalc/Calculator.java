@@ -57,7 +57,7 @@ public class Calculator {
         BigDecimal result = BigDecimal.ZERO;
         for (FixedCost cost : statement.getFixedCosts()) {
             if (!cost.isRemoved()) {
-                result = result.add(cost.getPayAmount());
+                result = result.add(cost.getAmount());
             }
         }
         return result;

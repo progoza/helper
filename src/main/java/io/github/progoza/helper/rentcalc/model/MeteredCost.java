@@ -9,12 +9,12 @@ import lombok.Setter;
 @Setter
 public class MeteredCost {
     private long id;
-    private String name;
+    private String description;
     private String unitName;
     private BigDecimal payPerUnit;
     private BigDecimal anticipatedUsage;
-    private boolean isRemoved;
-    private boolean isChanged;
+    private boolean removed;
+    private boolean changed;
 
     private BigDecimal anticipatedCost;
     private BigDecimal actualUsage;

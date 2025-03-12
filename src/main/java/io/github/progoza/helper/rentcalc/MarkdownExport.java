@@ -41,6 +41,8 @@ public class MarkdownExport {
         "- Wskazania liczników\n" + 
         "\n",
         
+        // --------------------------------------
+
         "\\begin{table}[H]\n" + //
         "\\centering\n" + //
         "\\ttfamily\n" +
@@ -49,14 +51,23 @@ public class MarkdownExport {
         "\\multicolumn{1}{|c|}{\\textbf{Nazwa}} & \\multicolumn{1}{|c|}{\\textbf{{refStatementDate}}} & \\multicolumn{1}{|c|}{\\textbf{{statementDate}}} & \\multicolumn{1}{|c|}{\\textbf{Zużycie}} \\\\\n" + //
         "\\hline\n" ,
 
+        // --------------------------------------
+
         "{meterName}   & {meterOldReading} & {meterNewReading} & {meterUsage}  \\\\\n" + //
         "\\hline\n",
 
+        // --------------------------------------
+
         "\\end{tabularx}\n" + //
-        "\\end{table}" +
+        "\\end{table}",
+
+        // --------------------------------------
+
         "\n" + //
         "-  Opłaty według wskazań liczników\n" + //
         "\n",
+
+         // --------------------------------------
 
         "\\begin{table}[H]\n" + //
         "\\centering\n" + //
@@ -66,11 +77,18 @@ public class MarkdownExport {
         "\\multicolumn{1}{|c|}{\\textbf{Opłata w/g zużycia}} & \\multicolumn{1}{|c|}{\\textbf{Koszt}} \\\\\n" + //
         "\\hline\n",
 
+        // --------------------------------------
+
         "{meteredCostName}: {pricePerUnit} x {actualUsage} = & {actualCost}  \\\\\n" + //
         "\\hline\n",
 
+        // --------------------------------------
+        
         "\\end{tabularx}\n" + //
-        "\\end{table}\n  \n"+
+        "\\end{table}\n  \n",
+
+        // --------------------------------------
+
         "#### Podsumowanie okresu {title}\n" + //
         "\n" + //
         "\n- Zestawienie pobranych zaliczek i rzeczywistych kosztów" + //        
@@ -92,7 +110,11 @@ public class MarkdownExport {
         " \n" + //
         " - Proszę odliczyć/doliczyć nadpłatę/niedopłatę do czynszu za {nextMonthName}.\n",
 
+        // --------------------------------------
+
         " - {freeComment}\n",
+
+        // --------------------------------------
 
         "\n" + //
         "\\begin{table}[H]\n" + //
@@ -103,8 +125,12 @@ public class MarkdownExport {
         "\\multicolumn{1}{|c|}{\\textbf{Data}} & \\multicolumn{1}{|c|}{\\textbf{Czynsz}} & \\multicolumn{1}{|c|}{\\textbf{Opłaty}} & \\multicolumn{1}{|c|}{\\textbf{{diffName}}} & \\multicolumn{1}{|c|}{\\textbf{Razem}} \\\\\n" + //
         "\\hline\n",
 
+        // --------------------------------------
+
         "{futurePaymentDate} & {rentAmount} & {futureTotalAnticipatedCosts} & {diff} & {futurePaymentAmount} \\\\\n" + //
         "\\hline\n",
+
+        // --------------------------------------
 
         "\\end{tabularx}\n" + //
         "\\end{table}\n\n  " + //
@@ -115,6 +141,8 @@ public class MarkdownExport {
         "1. Opłaty eksploatacyjne stałe:\n" + //
         "\n",
 
+        // --------------------------------------
+
         "\\begin{table}[H]\n" + //
         "\\centering\n" + //
         "\\ttfamily\n" + //
@@ -123,13 +151,19 @@ public class MarkdownExport {
         "\\multicolumn{1}{|c|}{\\textbf{Opłata stała}} & \\multicolumn{1}{|c|}{\\textbf{Koszt}} \\\\\n" + //
         "\\hline\n",
 
+        // --------------------------------------
+
         "{futureFixedCostName} & {futureFixedCostAmount} zł / mc \\\\\n" + //
         "\\hline\n",
+
+        // --------------------------------------
 
         "\\end{tabularx}\n" + //
         "\\end{table}\n  \n" + //
         "2. Opłaty eksploatacyjne w/g zużycia:\n" + //
         "\n",
+
+        // --------------------------------------
 
         "\\begin{table}[H]\n" + //
         "\\centering\n" + //
@@ -139,10 +173,14 @@ public class MarkdownExport {
         "\\multicolumn{3}{|c|}{\\textbf{Opłata w/g zużycia:}}  \\\\\n" + //
         "\\hline\n",
 
+        // --------------------------------------
+        
         "{meteredCostName} & opłata za 1 {meteredCostUnit}: &  {payPerUnit} zł / {meteredCostUnit} \\\\\n" + //
         "   &  planowane zużycie / mc zł & {anticipatedUsage} {meteredCostUnit} \\\\\n" + //
         "   &  planowany koszy / mc & {anticipatedCost} zł \\\\\n" + //
         "\\hline\n",
+
+        // --------------------------------------
 
         "\\end{tabularx}\n" + //
         "\\end{table}\n  \n" + //
@@ -175,46 +213,46 @@ public class MarkdownExport {
                 .replace("{fixedCostsAmount}", df2.format(s.getFixedCostsAmount()));
             writer.write(line0);
 
-            String line1;
-            if (s.getMeteredCosts().isEmpty()) {
-                line1 = "Brak zarejestrowanych liczników.";
+            if (s.getMeters().isEmpty()) {
+                writer.write("Brak zarejestrowanych liczników.");
             } else {
-                line1 = lines[1]
+                String line1 = lines[1]
                     .replace("{refStatementDate}", s.getLastStatementDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)))
                     .replace("{statementDate}", s.getCreationDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                writer.write(line1);
+
+                for (Meter m : s.getMeters()) {
+                    String line2 = lines[2]
+                        .replace("{meterName}", m.getName())
+                        .replace("{meterOldReading}", df3.format(m.getOldMeterReading()))
+                        .replace("{meterNewReading}", df3.format(m.getReading()))
+                        .replace("{meterUsage}", df3.format(m.getUsage()));
+                    writer.write(line2);
+                }
+
+                writer.write(lines[3]);
             }
-            writer.write(line1);
 
-            for (Meter m : s.getMeters()) {
-                String line2 = lines[2]
-                    .replace("{meterName}", m.getName())
-                    .replace("{meterOldReading}", df3.format(m.getOldMeterReading()))
-                    .replace("{meterNewReading}", df3.format(m.getReading()))
-                    .replace("{meterUsage}", df3.format(m.getUsage()));
-                writer.write(line2);
-            }
+            writer.write(lines[4]);
 
-            String line3 = lines[3];
-            writer.write(line3);
-
-            String line4;
             if (s.getMeteredCosts().isEmpty()) {
-                line4 = "Brak kosztów w/g zuycia.";
+                writer.write("Brak kosztów w/g zuycia.");
             } else {
-                line4 = lines[4];
-            }
-            writer.write(line4);
+                writer.write(lines[5]);
 
-            for (MeteredCost mc : s.getMeteredCosts()) {
-                String line5 = lines[5]
-                .replace("{meteredCostName}", mc.getName())
-                .replace("{pricePerUnit}", df2.format(mc.getPayPerUnit()))
-                .replace("{actualUsage}", df3.format(mc.getActualUsage()))
-                .replace("{actualCost}", df2.format(mc.getActualCost()));
-                writer.write(line5);
+                for (MeteredCost mc : s.getMeteredCosts()) {
+                    String line6 = lines[6]
+                    .replace("{meteredCostName}", mc.getDescription())
+                    .replace("{pricePerUnit}", df2.format(mc.getPayPerUnit()))
+                    .replace("{actualUsage}", df3.format(mc.getActualUsage()))
+                    .replace("{actualCost}", df2.format(mc.getActualCost()));
+                    writer.write(line6);
+                }
+    
+                writer.write(lines[7]);
             }
 
-            String line6 = lines[6]
+            String line8 = lines[8]
                 .replace("{title}", s.getFrontPageTitle())
                 .replace("{monthsCount}", "" + s.getCountOfMonthsCovered())
                 .replace("{totalAnticipatedCostPerMonth}", df2.format(s.getTotalAnticipatedCostsPerMonth()))
@@ -226,78 +264,78 @@ public class MarkdownExport {
                 .replace("{diff}", df2.format(s.getDiffToPayOrReturn()))
                 .replace("{nextPeriodTitle}", s.getNextPeriodTitle())
                 .replace("{nextMonthName}", s.getNextMonthName());
-            writer.write(line6);
-
-            for (String freeComment : s.getFreeComments()) {
-                String line7 = lines[7]
-                    .replace("{freeComment}", freeComment);
-                writer.write(line7);
-            }
-
-            String line8 = lines[8].replace("{diffName}", s.getDiffDescription());
             writer.write(line8);
 
-            for (int i=0; i<s.getFuturePayments().size(); i++) {
+            for (String freeComment : s.getFreeComments()) {
                 String line9 = lines[9]
+                    .replace("{freeComment}", freeComment);
+                writer.write(line9);
+            }
+
+            String line10 = lines[10].replace("{diffName}", s.getDiffDescription());
+            writer.write(line10);
+
+            for (int i=0; i<s.getFuturePayments().size(); i++) {
+                String line11 = lines[11]
                     .replace("{futurePaymentDate}", s.getFuturePaymentsDeadline().get(i).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)))
                     .replace("{rentAmount}", df2.format(s.getApartament().getRentAmount()))
                     .replace("{futureTotalAnticipatedCosts}", df2.format(s.getFutureTotalCostsPerMonth()))
                     .replace("{futurePaymentAmount}", df2.format(s.getFuturePayments().get(i)))
                     .replace("{diff}", i == 0 ? df2.format(s.getDiffToPayOrReturn()) : " ") ;    
-                writer.write(line9);
+                writer.write(line11);
             }
 
-            writer.write(lines[10]);   
+            writer.write(lines[12]);   
 
             long futureFixedCostsCount = s.getFixedCosts().stream().filter(x -> !x.isRemoved()).count();
-            String line11;
+            String line13;
             if (futureFixedCostsCount == 0) {
-                line11 = "Brak zdefiniowanych kosztów stałych.";
+                line13 = "Brak zdefiniowanych kosztów stałych.";
             } else {
-                line11 = lines[11];
+                line13 = lines[13];
             }
-            writer.write(line11);   
+            writer.write(line13);   
 
             for (FixedCost fc : s.getFixedCosts()) {
                 if (fc.isRemoved()) {
                     continue;
                 }
-                String line12 = lines[12]
+                String line14 = lines[14]
                         .replace("{futureFixedCostName}", fc.getDescription())
-                        .replace("{futureFixedCostAmount}", df2.format(fc.getPayAmount()));
-                writer.write(line12);
+                        .replace("{futureFixedCostAmount}", df2.format(fc.getAmount()));
+                writer.write(line14);
             }
 
-            writer.write(lines[13]);
+            writer.write(lines[15]);
 
             long futureMeteredCostsCount = s.getMeteredCosts().stream().filter(x -> !x.isRemoved()).count();
-            String line14;
+            String line16;
             if (futureMeteredCostsCount == 0) {
-                line14 = "Brak definiowanych kosztów w/g zuycia.";
+                line16 = "Brak definiowanych kosztów w/g zuycia.";
             } else {
-                line14 = lines[14];
+                line16 = lines[16];
             }
-            writer.write(line14);
+            writer.write(line16);
 
             for (MeteredCost meteredCost : s.getMeteredCosts()) {
                 if (meteredCost.isRemoved()) {
                     continue;
                 }
-                String line15 = lines[15]
-                    .replace("{meteredCostName}", meteredCost.getName())
+                String line17 = lines[17]
+                    .replace("{meteredCostName}", meteredCost.getDescription())
                     .replace("{meteredCostUnit}", meteredCost.getUnitName())
                     .replace("{payPerUnit}", df2.format(meteredCost.getPayPerUnit()))
                     .replace("{anticipatedUsage}", df3.format(meteredCost.getAnticipatedUsage()))
                     .replace("{anticipatedCost}", df2.format(meteredCost.getAnticipatedCost()));
-                writer.write(line15);
+                writer.write(line17);
             }
 
-            String line16 = lines[16]
+            String line18 = lines[18]
                 .replace("{futureTotalFixCosts}", s.getFutureFixedCostPerMonth().toString())
                 .replace("{futureTotalMeteredCosts}", s.getFutureMeteredCostsPerMonth().toString())
-                .replace("{futureTotalCosts}", s.getFutureTotalCostsPerMonth().toString())
-                ;
-            writer.write(line16);
+                .replace("{futureTotalCosts}", s.getFutureTotalCostsPerMonth().toString());
+            writer.write(line18);
+
             System.out.println("Plik markdown " + fileName + " zapisany pomyślnie.");
         } catch (IOException e) {
             throw new RuntimeException("Exception while exporting markdown file.", e);

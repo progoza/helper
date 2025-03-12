@@ -34,20 +34,20 @@ public class CalculatorTest {
 
         FixedCost ofc1 = new FixedCost();
         ofc1.setId(1);
-        ofc1.setPayAmount(new BigDecimal("3123.45"));
+        ofc1.setAmount(new BigDecimal("3123.45"));
         FixedCost ofc2 = new FixedCost();
         ofc2.setId(2);
-        ofc2.setPayAmount(new BigDecimal("3234.32"));
+        ofc2.setAmount(new BigDecimal("3234.32"));
         testObj.setOldStatement(new Statement());
         testObj.getOldStatement().getFixedCosts().add(ofc1);
         testObj.getOldStatement().getFixedCosts().add(ofc2);
         testObj.getOldStatement().setCreationDate(LocalDate.of(2024, 10, 31));
         FixedCost nfc1 = new FixedCost();
         nfc1.setId(1);
-        nfc1.setPayAmount(new BigDecimal("123.45"));
+        nfc1.setAmount(new BigDecimal("123.45"));
         FixedCost nfc2 = new FixedCost();
         nfc2.setId(2);
-        nfc2.setPayAmount(new BigDecimal("234.32"));
+        nfc2.setAmount(new BigDecimal("234.32"));
         testObj.getNewStatement().getFixedCosts().add(nfc1);
         testObj.getNewStatement().getFixedCosts().add(nfc2);
         testObj.getNewStatement().setCreationDate(LocalDate.of(2024, 12, 31));

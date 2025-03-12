@@ -10,7 +10,7 @@ import lombok.Setter;
 public class FixedCost {
     private long id;
     private String description;
-    private BigDecimal payAmount;
-    private boolean isChanged;
-    private boolean isRemoved;
+    private BigDecimal amount;
+    private boolean changed;
+    private boolean removed;
 }

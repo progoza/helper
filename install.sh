@@ -7,8 +7,6 @@ rm -rf ~/.local/bin/jar/helper-libs
 mkdir ~/.local/bin/jar/helper-libs
 cp ./target/libs/jackson-*.jar ~/.local/bin/jar/helper-libs
 cp ./target/libs/apiguardian-api-*.jar ~/.local/bin/jar/helper-libs
-cp ./target/libs/apiguardian-api-*.jar ~/.local/bin/jar/helper-libs
-
 
 cp ./script/h-rentcalc.sh ~/.local/bin/
 

@@ -31,7 +31,7 @@ public class App {
         fixedCost.setChanged(true);
         fixedCost.setDescription(fixedCostName);
         fixedCost.setId(fixedCostId);
-        fixedCost.setPayAmount(fixedCostValue);
+        fixedCost.setAmount(fixedCostValue);
         return fixedCost;
     }
 
@@ -51,7 +51,7 @@ public class App {
         meteredCost.setAnticipatedUsage(meteredCostAnticipatedUsage);
         meteredCost.setChanged(true);
         meteredCost.setId(meteredCostId++);
-        meteredCost.setName(meteredCostName);
+        meteredCost.setDescription(meteredCostName);
         meteredCost.setUnitName(meteredCostUnitName);
         return meteredCost;
     }
@@ -141,7 +141,7 @@ public class App {
                 if (oldFixedCost.isRemoved()) {
                     continue;
                 }
-                System.out.println("  " + oldFixedCost.getId() + " - " + oldFixedCost.getDescription() + " : " + oldFixedCost.getPayAmount());
+                System.out.println("  " + oldFixedCost.getId() + " - " + oldFixedCost.getDescription() + " : " + oldFixedCost.getAmount());
                 String option = readString(s, "  Czy chcesz je (Z)mienic, (U)sunąć czy (N)ie zmieniać%s?\n> ", "N");
                 if (option.equalsIgnoreCase("Z")) {
                     FixedCost fixedCost = readFixedCost(s, oldFixedCost.getId());
@@ -150,7 +150,7 @@ public class App {
                     FixedCost fixedCost = new FixedCost();
                     fixedCost.setId(oldFixedCost.getId());
                     fixedCost.setDescription(oldFixedCost.getDescription());
-                    fixedCost.setPayAmount(oldFixedCost.getPayAmount());
+                    fixedCost.setAmount(oldFixedCost.getAmount());
                     if (option.equalsIgnoreCase("U")) {
                         fixedCost.setRemoved(true);
                     }
@@ -180,7 +180,7 @@ public class App {
                 if (oldMeteredCost.isRemoved()) {
                     continue;
                 }
-                System.out.println("  " + oldMeteredCost.getId() + " - " + oldMeteredCost.getName() + " : " + oldMeteredCost.getPayPerUnit() + "/" + oldMeteredCost.getUnitName());
+                System.out.println("  " + oldMeteredCost.getId() + " - " + oldMeteredCost.getDescription() + " : " + oldMeteredCost.getPayPerUnit() + "/" + oldMeteredCost.getUnitName());
                 String option = readString(s, "  Czy chcesz je (Z)mienic, (U)sunąć czy (N)ie zmieniać%s?\n> ", "N");
                 if (option.equalsIgnoreCase("Z")) {
                     MeteredCost meteredCost = readMeteredCost(s, oldMeteredCost.getId());
@@ -188,7 +188,7 @@ public class App {
                 } else {
                     MeteredCost meteredCost = new MeteredCost();
                     meteredCost.setId(oldMeteredCost.getId());
-                    meteredCost.setName(oldMeteredCost.getName());
+                    meteredCost.setDescription(oldMeteredCost.getDescription());
                     meteredCost.setPayPerUnit(oldMeteredCost.getPayPerUnit());
                     meteredCost.setAnticipatedUsage(oldMeteredCost.getAnticipatedUsage());
                     meteredCost.setUnitName(oldMeteredCost.getUnitName());
@@ -253,7 +253,7 @@ public class App {
             BigDecimal meteredReading = readBigDecimal(s, "Podaj odczyt licznika%s:\n> ", null);
             System.out.println("Zdefiniuj jakie zmienne koszty mierzy licznik (podaj ID oddzielone przecnikiem):");
             for (MeteredCost mc : newStatement.getMeteredCosts()) {
-                System.out.println("  " + mc.getId() + " - " + mc.getName());
+                System.out.println("  " + mc.getId() + " - " + mc.getDescription());
             }
             System.out.print("> ");
             String meterPaymentsIdsStr = s.nextLine();
