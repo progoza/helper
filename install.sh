@@ -11,3 +11,8 @@ cp ./target/libs/apiguardian-api-*.jar ~/.local/bin/jar/helper-libs
 cp ./script/h-rentcalc.sh ~/.local/bin/
 
 chmod u+x ~/.local/bin/h-rentcalc.sh
+
+
+cp ./script/h-backupdocs.sh ~/.local/bin/
+
+chmod u+x ~/.local/bin/h-backupdocs.sh
