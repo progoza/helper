@@ -2,6 +2,7 @@ package io.github.progoza.helper.rentcalc;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -102,6 +103,9 @@ public class MarkdownExport {
         "\\hline\n" + //
         "Rzeczywiste koszty: {fixedCostsValue} + {meteredActualCostsValue} = & {totalActualCosts} \\\\\n" + //
         "\\hline\n" + //
+        "{zaleglosc} = & {dueAmount} \\\\\n" + //
+        "\\hline\n" + //
+
         "{diffName}: & {diff} \\\\\n" + //
         "\\hline\n" + //
         "\\end{tabularx}\n" + //
@@ -260,6 +264,8 @@ public class MarkdownExport {
                 .replace("{fixedCostsValue}", df2.format(s.getFixedCostsAmount()))
                 .replace("{meteredActualCostsValue}", df2.format(s.getActualMeteredCostsAmount()))
                 .replace("{totalActualCosts}", df2.format(s.getTotalActualCosts()))
+                .replace("{zaleglosc}", s.getDueAmount().compareTo(BigDecimal.ZERO) < 0 ? "Korekta (nadwyżka)" : "Zaległość")
+                .replace("{dueAmount}", df2.format(s.getDueAmount().abs()))
                 .replace("{diffName}", s.getDiffDescription())
                 .replace("{diff}", df2.format(s.getDiffToPayOrReturn()))
                 .replace("{nextPeriodTitle}", s.getNextPeriodTitle())

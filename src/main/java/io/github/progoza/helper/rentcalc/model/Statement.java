@@ -16,7 +16,7 @@ public class Statement {
     private List<MeteredCost> meteredCosts;
     private List<Meter> meters;
     private LocalDate creationDate;
-    private BigDecimal dueAmount;
+    private BigDecimal dueAmount = BigDecimal.ZERO;
     private LocalDate lastStatementDate;
     private int numberOfFuturePayments;
     private List<String> freeComments;

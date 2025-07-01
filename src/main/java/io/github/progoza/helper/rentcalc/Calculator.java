@@ -169,6 +169,7 @@ public class Calculator {
         newStatement.setTotalActualCosts(actualMeteredCostsAmount.add(fixedCostsAmount));
 
         BigDecimal diff = newStatement.getTotalActualCosts().subtract(newStatement.getTotalAnticipatedCosts());
+        diff = diff.add(newStatement.getDueAmount());
         newStatement.setDiffToPayOrReturn(diff);
         newStatement.setDiffDescription(getDiffDescription(diff));
 
