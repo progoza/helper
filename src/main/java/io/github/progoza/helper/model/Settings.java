@@ -9,4 +9,8 @@ public class Settings {
     public String getMdDir() {
         return "/tmp";
     }
+
+    public String getCarMaintenanceDir() {
+        return "/Volumes/home/Documents/samochody/db";
+    }
 }

@@ -12,7 +12,7 @@ if [ "$1" == "-silent" ] ; then
    SILENT=$1
 fi
 
-java -cp "$HOME/.local/bin/jar/helper.jar:$HOME/.local/bin/jar/helper-libs/*" io.github.progoza.helper.App $SILENT
+java -cp "$HOME/.local/bin/jar/helper.jar:$HOME/.local/bin/jar/helper-libs/*" io.github.progoza.helper.App rentcalc $SILENT
 
 LAST_RENTCALC_FILE=/tmp/last-rentcalc-file.txt
 
