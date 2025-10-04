@@ -332,7 +332,7 @@ public class MarkdownExport {
                     .replace("{meteredCostUnit}", meteredCost.getUnitName())
                     .replace("{payPerUnit}", df2.format(meteredCost.getPayPerUnit()))
                     .replace("{anticipatedUsage}", df3.format(meteredCost.getAnticipatedUsage()))
-                    .replace("{anticipatedCost}", df2.format(meteredCost.getAnticipatedCost()));
+                    .replace("{anticipatedCost}", df2.format(meteredCost.getFutureAnticipatedCost()));
                 writer.write(line17);
             }
 

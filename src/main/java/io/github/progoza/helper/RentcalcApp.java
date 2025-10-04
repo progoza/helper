@@ -54,7 +54,7 @@ public class RentcalcApp extends AbstractApp{
         meteredCost.setPayPerUnit(meteredCostPayPerUnit);
         meteredCost.setAnticipatedUsage(meteredCostAnticipatedUsage);
         meteredCost.setChanged(true);
-        meteredCost.setId(meteredCostId++);
+        meteredCost.setId(meteredCostId);
         meteredCost.setDescription(meteredCostName);
         meteredCost.setUnitName(meteredCostUnitName);
         return meteredCost;

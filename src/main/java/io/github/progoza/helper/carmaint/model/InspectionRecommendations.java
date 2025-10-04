@@ -7,4 +7,5 @@ import lombok.Data;
 @Data
 public class InspectionRecommendations {
     private List<InspectionRecommendationItem> recommendations;
+    private String carName;
 }
